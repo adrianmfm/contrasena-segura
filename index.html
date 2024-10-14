@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Contraseñas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .password-box {
+            font-family: monospace;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Generador de Contraseñas</h1>
+        <input type="number" id="longitud" placeholder="Ingrese el tamaño de la contraseña max 32 caracteres" min="8">
+        <br>
+        <button onclick="generarContrasena()">Generar Contraseña</button>
+        <div class="result">
+            <p>La contraseña generada es:</p>
+            <p class="password-box" id="resultado"></p>
+        </div>
+    </div>
+
+    <script>
+   function generarContrasena() {
+    const longitud = document.getElementById('longitud').value || 8;
+
+    fetch('http://127.0.0.1:5000/generar_contrasena', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ longitud: parseInt(longitud) })
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(errorData.error || 'Error desconocido');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('resultado').innerText = data.contrasena;
+    })
+    .catch(error => {
+        document.getElementById('resultado').innerText = error.message;
+        console.error('Error:', error);
+    });
+}
+
+    </script>
+
+</body>
+</html>
