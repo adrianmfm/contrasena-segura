@@ -1,6 +1,6 @@
-#Contraseña Segura 🔐
+#Contraseña Segura
 
-## Descripción
+## Descripción 🔐
 
 Este proyecto es una aplicación web para la generación de contraseñas seguras utilizando Python y Flask en el backend. Permite a los usuarios especificar la longitud de la contraseña deseada y genera una contraseña aleatoria compuesta por letras, números y caracteres especiales, cumpliendo con los estándares de seguridad recomendados.
 
