@@ -1,4 +1,4 @@
-#🔐 Contraseña Segura 🔐
+#Contraseña Segura 🔐
 
 ## Descripción
 
